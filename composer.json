@@ -1,3 +1,9 @@
 {
-    "name": "pauci/twitter-bootstrap-module"
+    "name": "pauci/twitter-bootstrap-module",
+    "type": "library",
+    "autoload": {
+        "psr-0": {
+            "TwitterBootstrapModule": "src/"
+        }
+    }
 }
