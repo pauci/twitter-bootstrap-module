@@ -1,5 +1,4 @@
 <?php
-
 /*
  * @author     pkirschbaum
  * @copyright  Copyright (c) 2012 Pavol Kirschbaum
@@ -14,8 +13,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\Controller\Plugin\FlashMessenger;
 use Zend\View;
 
-class TwbFlashMessages extends AbstractHelper implements
-    ServiceLocatorAwareInterface
+class FlashMessages extends AbstractHelper implements ServiceLocatorAwareInterface
 {
     /**
      * @var ServiceLocatorInterface
@@ -29,7 +27,7 @@ class TwbFlashMessages extends AbstractHelper implements
 
     /**
      * @param ServiceLocatorInterface $serviceLocator
-     * @return TwbFlashMessages
+     * @return FlashMessages
      */
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -47,7 +45,7 @@ class TwbFlashMessages extends AbstractHelper implements
 
     /**
      * @param FlashMessenger $flashMessenger
-     * @return TwbFlashMessages
+     * @return FlashMessages
      */
     public function setFlashMessenger(FlashMessenger $flashMessenger)
     {
