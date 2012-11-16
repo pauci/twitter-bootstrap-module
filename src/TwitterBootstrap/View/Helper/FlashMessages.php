@@ -13,7 +13,8 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\Controller\Plugin\FlashMessenger;
 use Zend\View;
 
-class FlashMessages extends AbstractHelper implements ServiceLocatorAwareInterface
+class FlashMessages extends AbstractHelper implements
+    ServiceLocatorAwareInterface
 {
     /**
      * @var ServiceLocatorInterface
@@ -63,7 +64,7 @@ class FlashMessages extends AbstractHelper implements ServiceLocatorAwareInterfa
             if ($sl instanceof View\HelperPluginManager) {
                 $sl = $sl->getServiceLocator();
             }
-            $pluginManager        = $sl->get('ControllerPluginBroker');
+            $pluginManager        = $sl->get('ControllerPluginManager');
             $this->flashMessenger = $pluginManager->get('flashMessenger');
         }
         return $this->flashMessenger;
