@@ -13,7 +13,6 @@ namespace TwitterBootstrap\Form\View\Helper;
 use Zend\Form\View\Helper\FormRow as BaseFormRow;
 use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
-use Zend\Form\View\Helper\FormElementErrors;
 
 /**
  * @category   Zend
@@ -22,12 +21,12 @@ use Zend\Form\View\Helper\FormElementErrors;
  */
 class FormRow extends BaseFormRow
 {
+    const LABEL_DEFAULT = 'default';
+
     /**
      * @var FormLayout
      */
     protected $formLayoutHelper;
-
-    const LABEL_DEFAULT = 'default';
 
     /**
      * @var string|null
@@ -59,6 +58,8 @@ class FormRow extends BaseFormRow
         $elementErrors      .= $elementHelpHelper->render($element);
 
         if (!empty($label)) {
+            $layout = $this->getLayout();
+
             $label = $escapeHtmlHelper($label);
             $labelAttributes = $element->getLabelAttributes();
 
@@ -94,13 +95,13 @@ class FormRow extends BaseFormRow
 
                 switch ($labelPosition) {
                     case self::LABEL_PREPEND:
-                        switch ($this->formStyle) {
-                            case self::STYLE_DEFAULT:
+                        switch ($layout) {
+                            case FormLayout::LAYOUT_DEFAULT:
                             default:
                                 $markup = $labelOpen . $label . $labelClose . ' ' . $elementString . $elementErrors;
                                 break;
 
-                            case self::STYLE_HORIZONTAL:
+                            case FormLayout::LAYOUT_HORIZONTAL:
                                 $addClass = '';
                                 if ($element->getMessages()) {
                                     $addClass = ' error';
@@ -114,25 +115,26 @@ class FormRow extends BaseFormRow
                                 break;
                         }
                         break;
+
                     case self::LABEL_APPEND:
                     default:
-                        switch ($this->formStyle) {
-                            case self::STYLE_DEFAULT:
+                        switch ($layout) {
+                            case FormLayout::LAYOUT_DEFAULT:
                             default:
                                 $markup = $labelOpen . $elementString . ' ' . $label . $labelClose . $elementErrors;
                                 break;
 
-                            case self::STYLE_HORIZONTAL:
+                            case FormLayout::LAYOUT_HORIZONTAL:
                                 $addClass = '';
                                 if ($element->getMessages()) {
                                     $addClass = ' error';
                                 }
                                 $markup = '<div class="control-group' . $addClass . '">'
-                                        . '<div class="controls">'
-                                            . $labelOpen . $elementString
-                                            . ' ' . $label . $labelClose . $elementErrors
-                                        . '</div>'
-                                    . '</div>';
+                                            . '<div class="controls">'
+                                                . $labelOpen . $elementString
+                                                . ' ' . $label . $labelClose . $elementErrors
+                                            . '</div>'
+                                        . '</div>';
                                 break;
                         }
                         break;

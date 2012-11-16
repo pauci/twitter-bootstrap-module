@@ -18,6 +18,23 @@ class FormLabel extends BaseFormLabel
     protected $formLayoutHelper;
 
     /**
+     * Generate an opening label tag
+     *
+     * @param  null|array|ElementInterface $attributesOrElement
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\DomainException
+     * @return string
+     */
+    public function openTag($attributesOrElement = null)
+    {
+        if (null === $attributesOrElement && $this->getLayout() == FormLayout::LAYOUT_HORIZONTAL) {
+            // Replace null with empty array because call to createAttributesString() would be skipped otherwise
+            $attributesOrElement = array();
+        }
+        return parent::openTag($attributesOrElement);
+    }
+
+    /**
      * Override of original method to add Twitter Bootstrap css class
      *
      * @param array $attributes
