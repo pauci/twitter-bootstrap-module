@@ -13,6 +13,11 @@ use Zend\Form\View\Helper\FormLabel as BaseFormLabel;
 class FormLabel extends BaseFormLabel
 {
     /**
+     * @var FormLayout
+     */
+    protected $formLayoutHelper;
+
+    /**
      * Override of original method to add Twitter Bootstrap css class
      *
      * @param array $attributes

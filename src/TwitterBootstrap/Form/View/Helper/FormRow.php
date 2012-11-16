@@ -22,6 +22,11 @@ use Zend\Form\View\Helper\FormElementErrors;
  */
 class FormRow extends BaseFormRow
 {
+    /**
+     * @var FormLayout
+     */
+    protected $formLayoutHelper;
+
     const LABEL_DEFAULT = 'default';
 
     /**
@@ -164,43 +169,6 @@ class FormRow extends BaseFormRow
     }
 
     /**
-     * @param string $formStyle
-     * @return FormRow
-     * @throws Exception\InvalidArgumentException
-     */
-    public function setFormStyle($formStyle)
-    {
-        $formStyle = strtolower($formStyle);
-        if (!in_array($formStyle, array(
-            self::STYLE_DEFAULT,
-            self::STYLE_SEARCH,
-            self::STYLE_INLINE,
-            self::STYLE_HORIZONTAL
-        ))) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s excepts either %s::STYLE_DEFAULT, %s::STYLE_SEARCH, %s::STYLE_INLINE or %s::STYLE_HORIZONTAL; received "%s"',
-                __METHOD__,
-                __CLASS__,
-                __CLASS__,
-                __CLASS__,
-                __CLASS__,
-                (string) $formStyle
-            ));
-        }
-        $this->formStyle = $formStyle;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFormStyle()
-    {
-        return $this->formStyle;
-    }
-
-    /**
      * Set the label position
      *
      * @param $labelPosition
@@ -228,28 +196,6 @@ class FormRow extends BaseFormRow
     /**
      * Retrieve the FormElementErrors helper
      *
-     * @return FormElementErrors
-     */
-    protected function getElementErrorsHelper()
-    {
-        if ($this->elementErrorsHelper) {
-            return $this->elementErrorsHelper;
-        }
-
-        if (method_exists($this->view, 'plugin')) {
-            $this->elementErrorsHelper = $this->view->plugin('form_element_errors');
-        }
-
-        if (!$this->elementErrorsHelper instanceof FormElementErrors) {
-            $this->elementErrorsHelper = new FormElementErrors();
-        }
-
-        return $this->elementErrorsHelper;
-    }
-
-    /**
-     * Retrieve the FormElementErrors helper
-     *
      * @return FormElementHelp
      */
     protected function getElementHelpHelper()
@@ -267,5 +213,23 @@ class FormRow extends BaseFormRow
         }
 
         return $this->elementHelpHelper;
+    }
+
+    /**
+     * Retrieve Twitter Bootstrap layout configured via FormLayout view helper
+     *
+     * @return string
+     */
+    protected function getLayout()
+    {
+        if (null === $this->formLayoutHelper) {
+            $renderer = $this->getView();
+            if (method_exists($renderer, 'plugin')) {
+                $this->formLayoutHelper = $renderer->plugin('form_layout');
+            }
+        }
+        return $this->formLayoutHelper
+            ? $this->formLayoutHelper->getLayout()
+            : FormLayout::LAYOUT_DEFAULT;
     }
 }

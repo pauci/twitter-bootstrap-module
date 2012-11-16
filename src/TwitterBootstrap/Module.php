@@ -30,17 +30,18 @@ class Module
     {
         return array(
             'invokables' => array(
-                'formLayout'        => __NAMESPACE__ . '\Form\View\Helper\FormLayout',
-                'form'              => __NAMESPACE__ . '\Form\View\Helper\Form',
-                'formLabel'         => __NAMESPACE__ . '\Form\View\Helper\FormLabel',
-                'formSubmit'        => __NAMESPACE__ . '\Form\View\Helper\FormSubmit',
-                'formReset'         => __NAMESPACE__ . '\Form\View\Helper\FormReset',
-                'formButton'        => __NAMESPACE__ . '\Form\View\Helper\FormButton',
-                'formElementHelp'   => __NAMESPACE__ . '\Form\View\Helper\FormElementHelp',
-                'formElementErrors' => __NAMESPACE__ . '\Form\View\Helper\FormElementErrors',
-                'formRow'           => __NAMESPACE__ . '\Form\View\Helper\FormRow',
+                'form'                   => __NAMESPACE__ . '\Form\View\Helper\Form',
+                'formbutton'             => __NAMESPACE__ . '\Form\View\Helper\FormButton',
+                'formelementerrors'      => __NAMESPACE__ . '\Form\View\Helper\FormElementErrors',
+                'formelementhelp'        => __NAMESPACE__ . '\Form\View\Helper\FormElementHelp',
+                'formelementdescription' => __NAMESPACE__ . '\Form\View\Helper\FormElementHelp',
+                'formlabel'              => __NAMESPACE__ . '\Form\View\Helper\FormLabel',
+                'formlayout'             => __NAMESPACE__ . '\Form\View\Helper\FormLayout',
+                'formreset'              => __NAMESPACE__ . '\Form\View\Helper\FormReset',
+                'formrow'                => __NAMESPACE__ . '\Form\View\Helper\FormRow',
+                'formsubmit'             => __NAMESPACE__ . '\Form\View\Helper\FormSubmit',
 
-                'flashMessages'     => __NAMESPACE__ . '\View\Helper\FlashMessages',
+                'flashmessages'          => __NAMESPACE__ . '\View\Helper\FlashMessages',
             )
         );
     }
