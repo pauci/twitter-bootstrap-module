@@ -35,7 +35,6 @@ class Module
                 'formelementerrors'      => __NAMESPACE__ . '\Form\View\Helper\FormElementErrors',
                 'formelementhelp'        => __NAMESPACE__ . '\Form\View\Helper\FormElementHelp',
                 'formelementdescription' => __NAMESPACE__ . '\Form\View\Helper\FormElementHelp',
-                'formlabel'              => __NAMESPACE__ . '\Form\View\Helper\FormLabel',
                 'formlayout'             => __NAMESPACE__ . '\Form\View\Helper\FormLayout',
                 'formreset'              => __NAMESPACE__ . '\Form\View\Helper\FormReset',
                 'formrow'                => __NAMESPACE__ . '\Form\View\Helper\FormRow',

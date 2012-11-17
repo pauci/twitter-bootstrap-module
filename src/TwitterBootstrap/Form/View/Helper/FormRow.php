@@ -57,9 +57,9 @@ class FormRow extends BaseFormRow
         $elementErrors       = $elementErrorsHelper->render($element);
         $elementErrors      .= $elementHelpHelper->render($element);
 
-        if (!empty($label)) {
-            $layout = $this->getLayout();
+        $layout = $this->getLayout();
 
+        if (!empty($label)) {
             $label = $escapeHtmlHelper($label);
             $labelAttributes = $element->getLabelAttributes();
 
@@ -71,9 +71,19 @@ class FormRow extends BaseFormRow
             $labelPosition = $this->getLabelPosition();
 
             if (self::LABEL_DEFAULT == $labelPosition) {
-                $labelPosition = in_array($type, array('checkbox', 'radio'))
-                    ? self::LABEL_APPEND
-                    : self::LABEL_PREPEND;
+                $addClass = function(&$attributes, $class) {
+                    $attributes['class'] = isset($attributes['class'])
+                        ? $attributes['class'] . ' ' . $class
+                        : $class;
+                };
+                if (in_array($type, array('checkbox', 'radio'))) {
+                    $labelPosition = self::LABEL_APPEND;
+                    $addClass($labelAttributes, $type);
+                } elseif (FormLayout::LAYOUT_HORIZONTAL == $layout) {
+                    $labelPosition = self::LABEL_PREPEND;
+                    $addClass($labelAttributes, 'control-label');
+                }
+                $element->setLabelAttributes($labelAttributes);
             }
 
             // Multicheckbox elements have to be handled differently as the HTML standard does not allow nested
@@ -141,33 +151,25 @@ class FormRow extends BaseFormRow
                 }
             }
         } else {
-            $markup = $elementString . $elementErrors;
+            switch ($layout) {
+                case FormLayout::LAYOUT_HORIZONTAL:
+                    $addClass = '';
+                    if ($element->getMessages()) {
+                        $addClass = ' error';
+                    }
+                    $markup = '<div class="control-group' . $addClass . '">'
+                                . '<div class="controls">'
+                                    . $elementString . $elementErrors
+                                . '</div>'
+                            . '</div>';
+                    break;
+                default:
+                    $markup = $elementString . $elementErrors;
+                    break;
+            }
         }
 
         return $markup;
-    }
-
-    /**
-     * Invoke helper as functor
-     *
-     * Proxies to {@link render()}.
-     *
-     * @param null|ElementInterface $element
-     * @param null|string $formStyle
-     * @param null|string $labelPosition
-     * @return string|FormRow
-     */
-    public function __invoke(ElementInterface $element = null, $formStyle = null, $labelPosition = null)
-    {
-        if (!$element) {
-            return $this;
-        }
-
-        if ($formStyle !== null) {
-            $this->setFormStyle($formStyle);
-        }
-
-        return parent::__invoke($element, $labelPosition);
     }
 
     /**
