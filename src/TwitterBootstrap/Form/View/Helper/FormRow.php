@@ -79,11 +79,14 @@ class FormRow extends BaseFormRow
                 if (in_array($type, array('checkbox', 'radio'))) {
                     $labelPosition = self::LABEL_APPEND;
                     $addClass($labelAttributes, $type);
-                } elseif (FormLayout::LAYOUT_HORIZONTAL == $layout) {
+                    $element->setLabelAttributes($labelAttributes);
+                } else {
                     $labelPosition = self::LABEL_PREPEND;
-                    $addClass($labelAttributes, 'control-label');
+                    if (FormLayout::LAYOUT_HORIZONTAL == $layout) {
+                        $addClass($labelAttributes, 'control-label');
+                        $element->setLabelAttributes($labelAttributes);
+                    }
                 }
-                $element->setLabelAttributes($labelAttributes);
             }
 
             // Multicheckbox elements have to be handled differently as the HTML standard does not allow nested
