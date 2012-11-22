@@ -85,7 +85,7 @@ class FlashMessages extends AbstractHelper implements
 
         $escaper = $this->view->plugin('escapeHtml');
         foreach ($flashMessenger->getMessages() as $message) {
-            $markup  = '<div class="alert alert-success">' . "\r\n";
+            $markup .= '<div class="alert alert-success">' . "\r\n";
             $markup .= '    <button type="button" class="close" data-dismiss="alert">×</button>' . "\r\n";
             $markup .= '    ' . $escaper($message);
             $markup .= "</div>\r\n";
