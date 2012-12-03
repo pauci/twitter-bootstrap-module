@@ -71,11 +71,17 @@ class FlashMessages extends AbstractHelper implements
     }
 
     /**
+     * @param string $class
+     * @param string $namespace
      * @return string
      */
-    public function __invoke()
+    public function __invoke($class = null, $namespace = null)
     {
         $flashMessenger = $this->getFlashMessenger();
+
+        if (null !== $namespace) {
+            $flashMessenger->setNamespace($namespace);
+        }
 
         if (!$flashMessenger->hasMessages()) {
             return '';
@@ -85,10 +91,10 @@ class FlashMessages extends AbstractHelper implements
 
         $escaper = $this->view->plugin('escapeHtml');
         foreach ($flashMessenger->getMessages() as $message) {
-            $markup .= '<div class="alert alert-success">' . "\r\n";
-            $markup .= '    <button type="button" class="close" data-dismiss="alert">×</button>' . "\r\n";
-            $markup .= '    ' . $escaper($message);
-            $markup .= "</div>\r\n";
+            $markup .= '<div class="'. trim('alert ' . $class) . '">' . PHP_EOL;
+            $markup .= '    <button type="button" class="close" data-dismiss="alert">×</button>' . PHP_EOL;
+            $markup .= '    ' . $message . PHP_EOL;
+            $markup .= '</div>' . PHP_EOL;
         }
 
         return $markup;
