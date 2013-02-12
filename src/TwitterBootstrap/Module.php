@@ -10,11 +10,6 @@ namespace TwitterBootstrap;
 
 class Module
 {
-    public function getConfig()
-    {
-        return include __DIR__ . '/../../config/module.config.php';
-    }
-
     public function getAutoloaderConfig()
     {
         return array(
@@ -41,6 +36,8 @@ class Module
                 'formsubmit'             => __NAMESPACE__ . '\Form\View\Helper\FormSubmit',
 
                 'flashmessages'          => __NAMESPACE__ . '\View\Helper\FlashMessages',
+
+                'navigation'             => __NAMESPACE__ . '\View\Helper\Navigation'
             )
         );
     }
