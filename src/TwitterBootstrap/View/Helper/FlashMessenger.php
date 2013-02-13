@@ -16,7 +16,7 @@ class FlashMessenger extends ZendFlashMessenger
      * @var string Templates for the open/close/separators for message tags
      */
     protected $messageCloseString     = '</div>';
-    protected $messageOpenFormat      = '<div%s>';
+    protected $messageOpenFormat      = '<div%s><a href="#" class="close" data-dismiss="alert">&times;</a>';
     protected $messageSeparatorString = PHP_EOL;
 
     /**
