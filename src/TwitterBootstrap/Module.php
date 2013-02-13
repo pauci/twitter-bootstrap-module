@@ -35,7 +35,7 @@ class Module
                 'formrow'                => __NAMESPACE__ . '\Form\View\Helper\FormRow',
                 'formsubmit'             => __NAMESPACE__ . '\Form\View\Helper\FormSubmit',
 
-                'flashmessages'          => __NAMESPACE__ . '\View\Helper\FlashMessages',
+                'flashmessenger'         => __NAMESPACE__ . '\View\Helper\FlashMessenger',
 
                 'navigation'             => __NAMESPACE__ . '\View\Helper\Navigation'
             )
